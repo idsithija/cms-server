@@ -1,4 +1,5 @@
 import { Dialect, Sequelize } from "sequelize";
+require("dotenv").config();
 
 // Ensure you have the correct environment variable names
 const dialect = process.env.DB_DIALECT! as Dialect;

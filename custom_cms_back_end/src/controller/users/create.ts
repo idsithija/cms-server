@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import User from "../../database/models/user/user";
 
 // Create a new user
-export const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
   try {
     const { username, email } = req.body;
 
@@ -16,3 +16,5 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export default createUser;
