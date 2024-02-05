@@ -27,7 +27,7 @@ sequelize
     console.error("Unable to connect to the database: ", error);
   });
 
-app.use("/api", routes);
+app.use(routes);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

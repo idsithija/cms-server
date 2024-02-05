@@ -1,20 +1,17 @@
 import express, { Request, Response } from "express";
-import User from "../../database/models/user/user";
+import { body, validationResult } from "express-validator";
+
+const router = express.Router();
 
 // Create a new user
-const createUser = async (req: Request, res: Response) => {
-  try {
-    const { username, email } = req.body;
+router.post(
+  "/create",
+  [body("email").isEmail().withMessage("Email must be valid")],
+  async (req: Request, res: Response) => {
+    const { username, email, password } = req.body;
 
-    // Create a new user in the database
-    const newUser = await User.create({ username, email });
-
-    // Send the created user as a response
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(200).send("ss");
   }
-};
+);
 
-export default createUser;
+export default router;

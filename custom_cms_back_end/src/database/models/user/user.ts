@@ -4,11 +4,13 @@ import sequelize from "../../sequelize";
 interface UserAttributes {
   username: string;
   email: string;
+  password: string;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
   public username!: string;
   public email!: string;
+  public password!: string;
 }
 
 User.init(
@@ -22,6 +24,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
