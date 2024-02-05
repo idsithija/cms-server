@@ -1,8 +1,8 @@
-// routes/userRoutes.js
 import express from "express";
-const router = express.Router();
-import emojis from "../api/emojis";
+import { createUser } from "../contoller/users";
 
-router.get("/", emojis);
+const router = express.Router();
+
+router.post("/create", createUser);
 
 export default router;
