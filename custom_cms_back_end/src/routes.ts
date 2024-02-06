@@ -1,8 +1,8 @@
 const express = require("express");
-import Emoji from "./routes/emoji"
+import authRouter from "./routes/auth";
 
 const router = express.Router();
 
-router.use("/", [Emoji]);
+router.use("/api", [authRouter]);
 
 export default router;
