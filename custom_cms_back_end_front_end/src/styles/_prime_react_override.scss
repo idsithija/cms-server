@@ -1,0 +1,13 @@
+.p-password {
+    input {
+      width: 100%;
+    }
+  }
+  
+  input {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  

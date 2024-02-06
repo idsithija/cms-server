@@ -1,10 +1,6 @@
 @import "primereact/resources/themes/saga-blue/theme.css";
 @import "primereact/resources/primereact.min.css";
 @import "primeflex/primeflex.css";
-@import 'primeicons/primeicons.css';
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+@import "primeicons/primeicons.css";
+@import "./base";
+@import "./prime_react_override";
