@@ -1,8 +1,8 @@
 const express = require("express");
-import userRouter from "./routes/users";
+import authRouter from "./routes/auth";
 
 const router = express.Router();
 
-router.use("/api", [userRouter]);
+router.use("/api", [authRouter]);
 
 export default router;
