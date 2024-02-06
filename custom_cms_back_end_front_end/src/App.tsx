@@ -3,6 +3,7 @@ import "./styles/main.scss";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+import { Counter } from "./components/counter";
 
 const LoginCardElement = () => {
   return <Button label="Sign in" />;
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <div className="h-screen">
       <div className="h-full flex align-items-center">
+        <Counter />
         <div className="w-20rem mx-auto">
           <Card
             title="Login"
