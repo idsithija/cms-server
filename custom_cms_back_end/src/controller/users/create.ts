@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../../database/models/user/user";
 import { body, validationResult } from "express-validator";
+import { validateRequest } from "../../middlewares/validate-request";
 
 // Create a new user
 const createUser = [
@@ -11,13 +12,9 @@ const createUser = [
     .isEmail()
     .withMessage("Email must be valid email address"),
   body("password").trim().notEmpty().withMessage("Password is required"),
+  validateRequest,
   async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     // // Create a new user in the database
     // const newUser = await User.create({ username, email, password });
 

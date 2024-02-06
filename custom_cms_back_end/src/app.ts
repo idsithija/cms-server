@@ -1,11 +1,13 @@
 import express from "express";
+import "express-async-errors";
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 
-import * as middlewares from "./middlewares/middlewares";
 import routes from "./routes";
 import sequelize from "./database/sequelize";
+import { errorHandler } from "./middlewares/error-handler";
+import { NotFoundError } from "./errorHandlers/not-found-error";
 
 const app = express();
 
@@ -29,7 +31,10 @@ sequelize
 
 app.use(routes);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+app.all("*", async () => {
+  throw new NotFoundError();
+});
+
+app.use(errorHandler);
 
 export default app;
