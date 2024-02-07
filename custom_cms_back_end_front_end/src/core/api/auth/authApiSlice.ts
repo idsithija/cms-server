@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { authService, baseUrl } from "@/core/services";
+import { authService } from "@/core/services";
+import { apiSlice } from "../apiSlice";
 
 type SignInPayload = {
   username: string;
@@ -14,10 +14,9 @@ type CurrentUserResponse = {
   } | null;
 };
 
-export const authApiSlice = createApi({
-  reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ["CurrentUser"],
+export const authApiSlice = apiSlice("authApi", [
+  "CurrentUser",
+]).injectEndpoints({
   endpoints: (builder) => ({
     getCurrentUser: builder.query<CurrentUserResponse, void>({
       query: () => authService.currentUser,

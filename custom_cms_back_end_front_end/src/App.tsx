@@ -1,51 +1,19 @@
-import { Card } from "primereact/card";
 import "./styles/main.scss";
-import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
-import { Button } from "primereact/button";
-import { Counter } from "./components/counter";
-import { useState } from "react";
-import { useSignInMutation } from "./core/api";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignIn from "./pages/SignIn";
+import RouterGaurd from "./core/routerGaurd";
+import Home from "./pages/Home";
 
 const App = () => {
-  const [loginFormData, setLoginFormData] = useState({
-    username: "admin",
-    password: "123",
-  });
-  const [signIn] = useSignInMutation();
-
-  const LoginCardElement = () => {
-    return <Button label="Sign in" onClick={() => signIn(loginFormData)} />;
-  };
-
   return (
-    <div className="h-screen">
-      <div className="h-full flex align-items-center">
-        <Counter />
-        <div className="w-20rem mx-auto">
-          <Card
-            title="Login"
-            className="w-full"
-            footer={() => LoginCardElement()}
-          >
-            <div className="flex flex-column gap-4">
-              <div className="p-inputgroup flex-1">
-                <span className="p-inputgroup-addon">
-                  <i className="pi pi-user"></i>
-                </span>
-                <InputText placeholder="Username" />
-              </div>
-              <div className="p-inputgroup flex-1">
-                <span className="p-inputgroup-addon">
-                  <i className="pi pi-lock"></i>
-                </span>
-                <Password className="w-full" placeholder="Password" />
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route element={<RouterGaurd />}>
+          <Route path="/dashboard" element={<Home />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 
