@@ -4,12 +4,20 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Counter } from "./components/counter";
-
-const LoginCardElement = () => {
-  return <Button label="Sign in" />;
-};
+import { useState } from "react";
+import { useSignInMutation } from "./core/api";
 
 const App = () => {
+  const [loginFormData, setLoginFormData] = useState({
+    username: "admin",
+    password: "123",
+  });
+  const [signIn] = useSignInMutation();
+
+  const LoginCardElement = () => {
+    return <Button label="Sign in" onClick={() => signIn(loginFormData)} />;
+  };
+
   return (
     <div className="h-screen">
       <div className="h-full flex align-items-center">
