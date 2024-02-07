@@ -1,3 +1,3 @@
-import { ReduxState } from "@/lib/redux";
+// import { ReduxState } from "@/core/redux";
 
-export const authSelector = (state: ReduxState) => state.auth.value;
+// export const authSelector = (state: ReduxState) => state.auth.value;
