@@ -1,8 +1,8 @@
-import { authApiSlice } from "@/core/api";
-import { toasterSlice } from "../state/toaster/toasterStateSlice";
 import { combineReducers } from "@reduxjs/toolkit";
+import { authApiSlice } from "@/core/api";
+import { toasterStateSlice } from "../state/toaster/toasterStateSlice";
 
 export const rootReducer = combineReducers({
   [authApiSlice.reducerPath]: authApiSlice.reducer,
-  [toasterSlice.name]: toasterSlice.reducer,
+  [toasterStateSlice.name]: toasterStateSlice.reducer,
 });

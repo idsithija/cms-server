@@ -5,7 +5,7 @@ import {
   useDispatch as useReduxDispatch,
   type TypedUseSelectorHook,
 } from "react-redux";
-import { middleware } from "./middleware";
+import { reduxMiddleware } from "./reduxMiddleware";
 
 /* Types */
 export type ReduxState = ReturnType<typeof store.getState>;
@@ -15,7 +15,7 @@ export type ReduxDispatch = typeof store.dispatch;
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(middleware);
+    return getDefaultMiddleware().concat(reduxMiddleware);
   },
 });
 

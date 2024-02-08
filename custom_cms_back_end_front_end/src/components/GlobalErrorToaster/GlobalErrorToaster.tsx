@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Toast } from "primereact/toast";
-import { useSelector } from "react-redux";
-import { toasterSelector } from "@/core/state/toaster/selectors";
+import { toasterSelector, useSelector } from "@/core/redux";
 
-export const ToasterComponent = () => {
+export const GlobalErrorToaster = () => {
   const toastRef = useRef<Toast>(null);
   const { showToast, errors } = useSelector(toasterSelector);
 
   useEffect(() => {
-    if (showToast && toastRef.current) {
+    if (showToast && toastRef.current && errors.length > 0) {
       errors.forEach((error) => {
         toastRef.current?.show({
           severity: "error",

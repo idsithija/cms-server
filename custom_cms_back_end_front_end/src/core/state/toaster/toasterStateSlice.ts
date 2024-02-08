@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define the state interface
 interface ToasterState {
@@ -13,8 +13,8 @@ const initialState: ToasterState = {
 };
 
 // Create a slice
-export const toasterSlice = createSlice({
-  name: 'toaster',
+export const toasterStateSlice = createSlice({
+  name: "toasterState",
   initialState,
   reducers: {
     showToast: (state) => {
@@ -30,4 +30,4 @@ export const toasterSlice = createSlice({
 });
 
 // Export actions and reducer
-export const { showToast, hideToast, addError } = toasterSlice.actions;
+export const { showToast, hideToast, addError } = toasterStateSlice.actions;
