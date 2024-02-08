@@ -3,17 +3,21 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import RouterGaurd from "./core/routerGaurd";
 import Home from "./pages/Home";
+import { ToasterComponent } from "./components/ToasterComponent";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route element={<RouterGaurd />}>
-          <Route path="/dashboard" element={<Home />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <ToasterComponent />
+      <Router>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route element={<RouterGaurd />}>
+            <Route path="/dashboard" element={<Home />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 };
 

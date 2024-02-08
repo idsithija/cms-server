@@ -1,7 +1,8 @@
 import { authApiSlice } from "../api/auth/authApiSlice";
 import { createLogger } from "redux-logger";
+import { rtkQueryErrorLogger } from "../middleware/errorHandler";
 
-let middleware = [authApiSlice.middleware];
+let middleware = [authApiSlice.middleware, rtkQueryErrorLogger];
 
 if (import.meta.env.DEV) {
   middleware.unshift(

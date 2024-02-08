@@ -6,13 +6,18 @@ import { Password } from "primereact/password";
 import { useSignInMutation } from "@/core/api";
 import { useNavigate } from "react-router-dom";
 
+type LoginFormData = {
+  username: string;
+  password: string;
+};
+
 const SignIn = () => {
-  const [loginFormData] = useState({
-    username: "admin",
-    password: "123",
-  });
   const [signIn] = useSignInMutation();
   const navigate = useNavigate();
+  const [loginFormData, setLoginFormData] = useState<LoginFormData>({
+    username: "",
+    password: "",
+  });
 
   const signInClick = () => {
     signIn(loginFormData)
@@ -27,32 +32,51 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen">
-      <div className="h-full flex align-items-center">
-        <div className="w-20rem mx-auto">
-          <Card
-            title="Login"
-            className="w-full"
-            footer={() => LoginCardElement()}
-          >
-            <div className="flex flex-column gap-4">
-              <div className="p-inputgroup flex-1">
-                <span className="p-inputgroup-addon">
-                  <i className="pi pi-user"></i>
-                </span>
-                <InputText placeholder="Username" />
+    <>
+      <div className="h-screen">
+        <div className="h-full flex align-items-center">
+          <div className="w-20rem mx-auto">
+            <Card
+              title="Login"
+              className="w-full"
+              footer={() => LoginCardElement()}
+            >
+              <div className="flex flex-column gap-4">
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon">
+                    <i className="pi pi-user" />
+                  </span>
+                  <InputText
+                    placeholder="Username"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setLoginFormData((prevData: LoginFormData) => ({
+                        ...prevData,
+                        username: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon">
+                    <i className="pi pi-lock" />
+                  </span>
+                  <Password
+                    className="w-full"
+                    placeholder="Password"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setLoginFormData((prevData: LoginFormData) => ({
+                        ...prevData,
+                        password: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
               </div>
-              <div className="p-inputgroup flex-1">
-                <span className="p-inputgroup-addon">
-                  <i className="pi pi-lock"></i>
-                </span>
-                <Password className="w-full" placeholder="Password" />
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -28,7 +28,6 @@ export const authApiSlice = apiSlice("authApi", [
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: ["CurrentUser"],
     }),
   }),
 });
