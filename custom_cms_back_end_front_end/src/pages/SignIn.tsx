@@ -4,6 +4,8 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { useSignInMutation } from "@/core/api";
+import { InputTypes } from "@/components/FormInputs/types";
+import Fields from "@/components/FormInputs/Fields";
 import { useNavigate } from "react-router-dom";
 
 type LoginFormData = {
@@ -34,6 +36,14 @@ const SignIn = () => {
   return (
     <>
       <div className="h-screen">
+        <Fields
+          type={InputTypes.Text}
+          name="ietm_name"
+          label="ss"
+          placeholder="ss"
+          id="ietm_name"
+        />
+        <Fields />
         <div className="h-full flex align-items-center">
           <div className="w-20rem mx-auto">
             <Card
