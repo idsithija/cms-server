@@ -3,7 +3,7 @@ import type { Middleware, PayloadAction } from "@reduxjs/toolkit";
 import { addError, showToast } from "../state/toaster/toasterStateSlice";
 
 type Error = {
-  errors: any[];
+  errors: { field: string; message: string }[];
 };
 
 // Define the payload type
@@ -17,7 +17,10 @@ export const rtkQueryErrorLogger: Middleware =
       const payloadAction = action as PayloadAction<Payload, string, any>;
       if (isRejectedWithValue(payloadAction)) {
         const payload = payloadAction.payload;
-        const errors = payload.data.errors;
+        let errors = payload.data?.errors;
+        if (!errors) {
+          errors = [{ field: "unknown", message: "Error occurred" }];
+        }
         next(addError(errors));
         next(showToast());
       }

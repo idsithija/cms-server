@@ -9,3 +9,22 @@ body {
   font-size: 1rem;
   font-weight: normal;
 }
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: #6c757d;
+  padding: 0.2rem 0rem;
+
+  &.required {
+    &::after {
+      content: " *";
+      color: red;
+    }
+  }
+}
+
+.from-error {
+  color: red;
+  font-size: 0.8rem;
+}

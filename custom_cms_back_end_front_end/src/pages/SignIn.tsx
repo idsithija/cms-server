@@ -1,28 +1,37 @@
-import { useState } from "react";
-import { Card } from "primereact/card";
-import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-import { Password } from "primereact/password";
-import { useSignInMutation } from "@/core/api";
-import { InputTypes } from "@/components/FormInputs/types";
-import Fields from "@/components/FormInputs/Fields";
 import { useNavigate } from "react-router-dom";
+import { Card } from "primereact/card";
+import { Button } from "primereact/button";
+import { useSignInMutation } from "@/core/api";
+import { InputText, Password } from "@/components/FormInput";
+import { Form, Formik, FormikProps } from "formik";
+import * as Yup from "yup";
 
 type LoginFormData = {
   username: string;
   password: string;
 };
 
+const SIGNIN_FROM_INITIAL_VALUES: LoginFormData = {
+  username: "",
+  password: "",
+};
+
+const SigninSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Username is required."),
+  password: Yup.string()
+    .min(8, "Password is too short - should be 8 chars minimum.")
+    .required("Password is required"),
+});
+
 const SignIn = () => {
   const [signIn] = useSignInMutation();
   const navigate = useNavigate();
-  const [loginFormData, setLoginFormData] = useState<LoginFormData>({
-    username: "",
-    password: "",
-  });
 
-  const signInClick = () => {
-    signIn(loginFormData)
+  const signInClick = (values: LoginFormData) => {
+    signIn(values)
       .unwrap()
       .then(() => {
         navigate("/dashboard");
@@ -30,59 +39,48 @@ const SignIn = () => {
   };
 
   const LoginCardElement = () => {
-    return <Button label="Sign in" onClick={() => signInClick()} />;
+    return <Button type="submit" label="Sign in" />;
   };
 
   return (
     <>
       <div className="h-screen">
-        <Fields
-          type={InputTypes.Text}
-          name="ietm_name"
-          label="ss"
-          placeholder="ss"
-          id="ietm_name"
-        />
-        <Fields />
         <div className="h-full flex align-items-center">
           <div className="w-20rem mx-auto">
-            <Card
-              title="Login"
-              className="w-full"
-              footer={() => LoginCardElement()}
+            <Formik
+              initialValues={SIGNIN_FROM_INITIAL_VALUES}
+              validationSchema={SigninSchema}
+              onSubmit={(values: LoginFormData) => signInClick(values)}
             >
-              <div className="flex flex-column gap-4">
-                <div className="p-inputgroup flex-1">
-                  <span className="p-inputgroup-addon">
-                    <i className="pi pi-user" />
-                  </span>
-                  <InputText
-                    placeholder="Username"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setLoginFormData((prevData: LoginFormData) => ({
-                        ...prevData,
-                        username: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="p-inputgroup flex-1">
-                  <span className="p-inputgroup-addon">
-                    <i className="pi pi-lock" />
-                  </span>
-                  <Password
+              {(props: FormikProps<LoginFormData>) => (
+                <Form>
+                  <Card
+                    title="Login"
                     className="w-full"
-                    placeholder="Password"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setLoginFormData((prevData: LoginFormData) => ({
-                        ...prevData,
-                        password: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-            </Card>
+                    footer={() => LoginCardElement()}
+                  >
+                    <div className="flex flex-column gap-4">
+                      <InputText
+                        id="username"
+                        name="username"
+                        placeholder="Username"
+                        inputicon={<i className="pi pi-user" />}
+                        onChange={props.handleChange}
+                        required
+                      />
+                      <Password
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        inputicon={<i className="pi pi-lock" />}
+                        onChange={props.handleChange}
+                        required
+                      />
+                    </div>
+                  </Card>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
