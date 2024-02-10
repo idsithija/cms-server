@@ -21,6 +21,7 @@ export const authApiSlice = apiSlice("authApi", [
     getCurrentUser: builder.query<CurrentUserResponse, void>({
       query: () => authService.currentUser,
       providesTags: ["CurrentUser"],
+      keepUnusedDataFor: 0.01,
     }),
     signIn: builder.mutation({
       query: (payload: SignInPayload) => ({
