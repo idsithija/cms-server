@@ -30,7 +30,7 @@ const SignIn = () => {
   const [signIn] = useSignInMutation();
   const navigate = useNavigate();
 
-  const signInClick = (values: LoginFormData) => {
+  const signinClick = (values: LoginFormData) => {
     signIn(values)
       .unwrap()
       .then(() => {
@@ -50,7 +50,7 @@ const SignIn = () => {
             <Formik
               initialValues={SIGNIN_FROM_INITIAL_VALUES}
               validationSchema={SigninSchema}
-              onSubmit={(values: LoginFormData) => signInClick(values)}
+              onSubmit={(values: LoginFormData) => signinClick(values)}
             >
               {(props: FormikProps<LoginFormData>) => (
                 <Form>

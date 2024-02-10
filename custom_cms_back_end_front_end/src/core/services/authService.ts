@@ -1,9 +1,11 @@
 export type AuthService = {
   signIn: string;
   currentUser: string;
+  signOut: string;
 };
 
 export const authService: AuthService = {
-  signIn: `/auth/signin`,
   currentUser: `/auth/currentuser`,
+  signIn: `/auth/signin`,
+  signOut: `auth/signout`,
 };

@@ -14,6 +14,12 @@ type CurrentUserResponse = {
   } | null;
 };
 
+type SignInResponse = {
+  id: number;
+  email: string;
+  username: string;
+};
+
 export const authApiSlice = apiSlice("authApi", [
   "CurrentUser",
 ]).injectEndpoints({
@@ -23,14 +29,22 @@ export const authApiSlice = apiSlice("authApi", [
       providesTags: ["CurrentUser"],
       keepUnusedDataFor: 0.01,
     }),
-    signIn: builder.mutation({
-      query: (payload: SignInPayload) => ({
+    signIn: builder.mutation<SignInResponse, SignInPayload>({
+      query: (payload) => ({
         url: authService.signIn,
         method: "POST",
         body: payload,
       }),
     }),
+    signOut: builder.mutation<any, void>({
+      query: () => ({
+        url: authService.signOut,
+        method: "POST",
+      }),
+      invalidatesTags: ["CurrentUser"],
+    }),
   }),
 });
 
-export const { useGetCurrentUserQuery, useSignInMutation } = authApiSlice;
+export const { useGetCurrentUserQuery, useSignInMutation, useSignOutMutation } =
+  authApiSlice;
