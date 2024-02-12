@@ -89,7 +89,7 @@ def install_node_modules():
 
 def start_node_app_with_pm2():
     try:
-         # Check if the app already exists with the same name
+        # Check if the app already exists with the same name
         check_existing = subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'show', 'app'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         if check_existing.returncode == 0:
@@ -97,7 +97,7 @@ def start_node_app_with_pm2():
             subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'delete', 'app'], check=True)
 
         # Starting Node.js application with PM2
-        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'src/index.ts', '--watch', '--interpreter', 'ts-node'], check=True, cwd=node_app_dir)
+        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'node', '--', 'src/index.ts', '--watch'], check=True, cwd=node_app_dir)
 
         # Saving PM2 process list to persist through reboots
         subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'save'], check=True)
@@ -112,6 +112,7 @@ def start_node_app_with_pm2():
         # Handling errors
         print(f"Error: Failed to start Node.js application with PM2: {e}")
         sys.exit(1)
+
 
 def configure_nginx():
     try:
