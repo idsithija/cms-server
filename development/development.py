@@ -83,14 +83,14 @@ def start_node_app_with_pm2():
             # If the app exists, delete it
             subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'delete', 'app'], check=True)
 
+        # Starting Node.js application with PM2
+        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'src/index.ts', '--watch', '--interpreter', 'ts-node'], check=True, cwd=node_app_dir)
+
         # Saving PM2 process list to persist through reboots
         subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'save'], check=True)
 
         # Generating startup script for PM2
         subprocess.run(['sudo', 'env', f'PATH=$PATH:/usr/bin', '/usr/lib/node_modules/pm2/bin/pm2', 'startup', 'systemd', '-u', current_user, '--hp', f'/home/{current_user}'], check=True)
-
-        # Starting Node.js application with PM2
-        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'src/app.js', '--watch'], check=True, cwd=node_app_dir)
 
         # Printing success message
         print("Node.js application started with PM2 and configured to start on system boot.")
