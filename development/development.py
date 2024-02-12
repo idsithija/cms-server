@@ -93,8 +93,8 @@ def install_mysql_server():
 
         # Create a new MySQL database and user
         subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE cms;'], check=True)
-        subprocess.run(['sudo', 'mysql', '-e', f'CREATE USER 'root'@'localhost' IDENTIFIED BY 'Zedvsyasuo123#';'], check=True)
-        subprocess.run(['sudo', 'mysql', '-e', f'GRANT ALL PRIVILEGES ON cms.* TO 'root'@'localhost';'], check=True)
+        subprocess.run(['sudo', 'mysql', '-e', f'CREATE USER root@localhost IDENTIFIED BY Zedvsyasuo123#;'], check=True)
+        subprocess.run(['sudo', 'mysql', '-e', f'GRANT ALL PRIVILEGES ON cms.* TO root@localhos;'], check=True)
         subprocess.run(['sudo', 'mysql', '-e', 'FLUSH PRIVILEGES;'], check=True)
 
         # Printing success message
@@ -157,7 +157,7 @@ def configure_nginx():
     server_name _;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:5000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
