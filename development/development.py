@@ -74,37 +74,6 @@ def install_pm2():
         print(f"Error: Failed to install PM2: {e}")
         sys.exit(1)
 
-def install_mysql_server():
-    try:
-        # Installing MySQL Server
-        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'mysql-server'], check=True)
-
-        # Printing success message
-        print("MySQL Server installed successfully.")
-
-        # Start MySQL service
-        subprocess.run(['sudo', 'systemctl', 'start', 'mysql'], check=True)
-
-        # Enable MySQL service to start on boot
-        subprocess.run(['sudo', 'systemctl', 'enable', 'mysql'], check=True)
-
-        # Secure MySQL installation
-        subprocess.run(['sudo', 'mysql_secure_installation'], check=True)
-
-        # Create a new MySQL database and user
-        subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE cms;'], check=True)
-        subprocess.run(['sudo', 'mysql', '-e', f'CREATE USER root@localhost IDENTIFIED BY Zedvsyasuo123#;'], check=True)
-        subprocess.run(['sudo', 'mysql', '-e', f'GRANT ALL PRIVILEGES ON cms.* TO root@localhos;'], check=True)
-        subprocess.run(['sudo', 'mysql', '-e', 'FLUSH PRIVILEGES;'], check=True)
-
-        # Printing success message
-        print("MySQL database and user created successfully.")
-
-    except subprocess.CalledProcessError as e:
-        # Handling errors
-        print(f"Error: Failed to install MySQL Server: {e}")
-        sys.exit(1)
-
 def install_node_modules():
     try:
         # Installing Node.js modules using npm in the directory containing the package.json file
@@ -196,9 +165,6 @@ def main():
 
     # Calling the function to install PM2
     install_pm2()
-
-    # Calling the function to install MySQL Server
-    install_mysql_server()
 
     # Calling the function to install node_modules
     install_node_modules()
