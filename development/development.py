@@ -97,8 +97,7 @@ def start_node_app_with_pm2():
             subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'delete', 'app'], check=True)
 
         # Starting Node.js application with PM2
-        subprocess.run(['pm2', 'start', 'ts-node', '--interpreter', 'ts-node', '--', '-P', 'tsconfig.server.json', 'src/index.ts'], check=True)
-        # subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'node', '--', 'src/index.ts', '--watch'], check=True, cwd=node_app_dir)
+        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'node', '--', 'src/index.ts', '--watch'], check=True, cwd=node_app_dir)
 
         # Saving PM2 process list to persist through reboots
         subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'save'], check=True)
