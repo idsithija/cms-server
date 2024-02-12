@@ -5,7 +5,7 @@ import stat
 
 # Define the application directory path as a global variable
 node_app_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'Projects', 'cms-server'))
-current_user = os.getlogin()
+current_user = os.getenv('USER')
 
 def update_node():
     try:
