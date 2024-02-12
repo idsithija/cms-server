@@ -35,6 +35,19 @@ def update_node():
         print(f"Error: Failed to update Node.js: {e}")
         sys.exit(1)
 
+def install_ts_node():
+    try:
+        # Installing ts-node locally
+        subprocess.run(['npm', 'install', 'ts-node'], check=True, cwd=node_app_dir)
+
+        # Printing success message
+        print("ts-node installed successfully.")
+
+    except subprocess.CalledProcessError as e:
+        # Handling errors
+        print(f"Error: Failed to install ts-node: {e}")
+        sys.exit(1)
+
 def install_nginx():
     try:
         # Installing Nginx
@@ -142,6 +155,9 @@ def configure_nginx():
 def main():
     # Calling the function to update Node.js
     update_node()
+
+    # Calling the function to install ts-node
+    install_ts_node()
 
     # Calling the function to install Nginx
     install_nginx()
