@@ -4,7 +4,8 @@ import os
 import stat
 
 # Define the application directory path as a global variable
-node_app_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'Projects', 'wsl-nodejs'))
+node_app_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'Projects', 'cms-server'))
+current_user = os.getlogin()
 
 def update_node():
     try:
@@ -89,7 +90,7 @@ def start_node_app_with_pm2():
         subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'save'], check=True)
 
         # Generating startup script for PM2
-        subprocess.run(['sudo', 'env', f'PATH=$PATH:/usr/bin', '/usr/lib/node_modules/pm2/bin/pm2', 'startup', 'systemd', '-u', 'idsithija', '--hp', f'/home/idsithija'], check=True)
+        subprocess.run(['sudo', 'env', f'PATH=$PATH:/usr/bin', '/usr/lib/node_modules/pm2/bin/pm2', 'startup', 'systemd', '-u', current_user, '--hp', f'/home/{current_user}'], check=True)
 
         # Printing success message
         print("Node.js application started with PM2 and configured to start on system boot.")
