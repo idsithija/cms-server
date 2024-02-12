@@ -114,44 +114,44 @@ def start_node_app_with_pm2():
         sys.exit(1)
 
 
-def configure_nginx():
-    try:
-        # Open Nginx configuration file for editing with sudo
-        nginx_conf_path = '/etc/nginx/sites-available/default'
-        with open(nginx_conf_path, 'w') as file:
-            file.write("""server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+# def configure_nginx():
+#     try:
+#         # Open Nginx configuration file for editing with sudo
+#         nginx_conf_path = '/etc/nginx/sites-available/default'
+#         with open(nginx_conf_path, 'w') as file:
+#             file.write("""server {
+#     listen 80 default_server;
+#     listen [::]:80 default_server;
 
-    server_name _;
+#     server_name _;
 
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-""")
+#     location / {
+#         proxy_pass http://localhost:3000;
+#         proxy_http_version 1.1;
+#         proxy_set_header Upgrade $http_upgrade;
+#         proxy_set_header Connection 'upgrade';
+#         proxy_set_header Host $host;
+#         proxy_cache_bypass $http_upgrade;
+#     }
+# }
+# """)
 
-        # Testing Nginx configuration
-        subprocess.run(['sudo', 'nginx', '-t'], check=True)
+#         # Testing Nginx configuration
+#         subprocess.run(['sudo', 'nginx', '-t'], check=True)
 
-        # Reloading Nginx to apply changes
-        subprocess.run(['sudo', 'systemctl', 'reload', 'nginx'], check=True)
+#         # Reloading Nginx to apply changes
+#         subprocess.run(['sudo', 'systemctl', 'reload', 'nginx'], check=True)
 
-        # Printing success message
-        print("Nginx configuration updated successfully.")
+#         # Printing success message
+#         print("Nginx configuration updated successfully.")
 
-    except FileNotFoundError:
-        print("Error: Nginx configuration file not found.")
-        sys.exit(1)
-    except subprocess.CalledProcessError as e:
-        # Handling errors
-        print(f"Error: Failed to configure Nginx: {e}")
-        sys.exit(1)
+#     except FileNotFoundError:
+#         print("Error: Nginx configuration file not found.")
+#         sys.exit(1)
+#     except subprocess.CalledProcessError as e:
+#         # Handling errors
+#         print(f"Error: Failed to configure Nginx: {e}")
+#         sys.exit(1)
 
 def main():
     # Calling the function to update Node.js
@@ -173,7 +173,7 @@ def main():
     start_node_app_with_pm2()
 
     # configure nagix to show node app
-    configure_nginx()
+    # configure_nginx()
 
 if __name__ == "__main__":
     # Calling the main function
