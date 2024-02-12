@@ -126,7 +126,7 @@ def configure_nginx():
     server_name _;
 
     location / {
-        proxy_pass http://localhost:5173;
+        proxy_pass http://localhost:5000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
