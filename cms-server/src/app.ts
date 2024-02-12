@@ -9,6 +9,7 @@ import routes from "./routes";
 import sequelize from "./database/sequelize";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errorHandlers";
+import path from "path";
 
 const app = express();
 
@@ -39,6 +40,14 @@ sequelize
   });
 
 app.use(routes);
+
+// Serve static files from the React build directory
+app.use(express.static(path.resolve(__dirname, '../views/dist')));
+
+// For any other route, serve the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../views/dist', 'index.html'));
+});
 
 app.all("*", async () => {
   throw new NotFoundError();
