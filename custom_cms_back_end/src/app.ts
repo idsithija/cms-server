@@ -42,11 +42,11 @@ sequelize
 app.use(routes);
 
 // Serve static files from the React build directory
-app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(express.static(path.resolve(__dirname, '../views/dist')));
 
 // For any other route, serve the index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../views/dist', 'index.html'));
 });
 
 app.all("*", async () => {

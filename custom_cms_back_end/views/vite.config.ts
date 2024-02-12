@@ -14,7 +14,6 @@ export default defineConfig({
   },
   plugins: [react(), tsconfigPaths()],
   build: {
-    outDir: "../custom_cms_back_end/build",
     rollupOptions: {
       output: {
         manualChunks(id) {
