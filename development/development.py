@@ -90,23 +90,20 @@ def install_node_modules():
 def start_node_app_with_pm2():
     try:
         # Check if the app already exists with the same name
-        check_existing = subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'show', 'app'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        check_existing = subprocess.run(['pm2', 'show', 'app'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         if check_existing.returncode == 0:
             # If the app exists, delete it
-            subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'delete', 'app'], check=True)
+            subprocess.run(['pm2', 'delete', 'app'], check=True)
 
         # Starting Node.js application with PM2
-        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'start', 'node', '--', 'src/index.ts', '--watch'], check=True, cwd=node_app_dir)
+        subprocess.run(['pm2', 'start', 'npm', '--', 'run', 'dev'], check=True, cwd=node_app_dir)
 
         # Saving PM2 process list to persist through reboots
-        subprocess.run(['/usr/lib/node_modules/pm2/bin/pm2', 'save'], check=True)
-
-        # Generating startup script for PM2
-        subprocess.run(['sudo', 'env', f'PATH=$PATH:/usr/bin', '/usr/lib/node_modules/pm2/bin/pm2', 'startup', 'systemd', '-u', current_user, '--hp', f'/home/{current_user}'], check=True)
+        subprocess.run(['pm2', 'save'], check=True)
 
         # Printing success message
-        print("Node.js application started with PM2 and configured to start on system boot.")
+        print("Node.js application started with PM2.")
 
     except subprocess.CalledProcessError as e:
         # Handling errors
