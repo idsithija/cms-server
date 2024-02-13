@@ -4,7 +4,7 @@ require("dotenv").config();
 // Ensure you have the correct environment variable names
 const databaseName = 'cms';
 const username = 'cms';
-const password = '123';
+const password = 'Zedvsyasuo123#';
 const host = "localhost";
 
 const sequelize = new Sequelize(databaseName, username, password, {

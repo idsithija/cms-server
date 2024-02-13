@@ -103,15 +103,26 @@ def initialize_mysql():
         print(f"Error: Failed to initialize MySQL: {e}")
         sys.exit(1)
 
-def create_database():
-    try:
-        # Connect to MySQL and create database
-        subprocess.run(['mysql', '-u', 'cms', '123', '-h', 'localhost', '-P', '3306', '-e', 'CREATE DATABASE IF NOT EXISTS cms;'], check=True)
+# def create_database():
+#     try:
+#         # Connect to MySQL and create database
+#         subprocess.run(['mysql', '-u', 'root', 'Zedvsyasuo123#', '-h', 'localhost', '-P', '3306', '-e', 'CREATE DATABASE IF NOT EXISTS cms;'], check=True)
 
-        print(f"Database 'cms' created successfully.")
+#         print(f"Database 'cms' created successfully.")
+
+#     except subprocess.CalledProcessError as e:
+#         print(f"Error: Failed to create database: {e}")
+#         sys.exit(1)
+
+def create_mysql_user():
+    try:
+        # Connect to MySQL and create user and grant privileges
+        subprocess.run(['mysql', '-u', 'root', '-p', '-e', "GRANT ALL PRIVILEGES ON cms.* TO 'cms'@'localhost' IDENTIFIED BY 'Zedvsyasuo123#';"], check=True)
+
+        print("MySQL user 'cms' created successfully with all privileges.")
 
     except subprocess.CalledProcessError as e:
-        print(f"Error: Failed to create database: {e}")
+        print(f"Error: Failed to create MySQL user: {e}")
         sys.exit(1)
 
 def install_node_modules():
@@ -216,6 +227,9 @@ def main():
 
     # Call the function to initialize MySQL
     initialize_mysql()
+
+    create_database()
+    create_mysql_user()
 
     # Calling the function to install node_modules
     install_node_modules()
