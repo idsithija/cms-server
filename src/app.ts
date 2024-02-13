@@ -5,8 +5,8 @@ import helmet from "helmet";
 import cors from "cors";
 import cookieSession from "cookie-session";
 
-import routes from "./routes";
-import sequelize from "./database/sequelize";
+// import routes from "./routes";
+// import sequelize from "./database/sequelize";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errorHandlers";
 import path from "path";
@@ -26,20 +26,20 @@ app.use(
   })
 );
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-    return sequelize.sync();
-  })
-  .then(() => {
-    console.log("All models were synchronized successfully.");
-  })
-  .catch((error) => {
-    console.error("Unable to connect to the database: ", error);
-  });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log("Connection has been established successfully.");
+//     return sequelize.sync();
+//   })
+//   .then(() => {
+//     console.log("All models were synchronized successfully.");
+//   })
+//   .catch((error) => {
+//     console.error("Unable to connect to the database: ", error);
+//   });
 
-app.use(routes);
+// app.use(routes);
 
 // Serve static files from the React build directory
 app.use(express.static(path.resolve(__dirname, '../views/dist')));
