@@ -2,15 +2,15 @@ import { Dialect, Sequelize } from "sequelize";
 require("dotenv").config();
 
 // Ensure you have the correct environment variable names
-const dialect = process.env.DB_DIALECT! as Dialect;
-const databaseName = process.env.DB_DATABASE_NAME!;
-const username = process.env.DB_USERNAME!;
-const password = process.env.DB_PASSWORD!;
-const host = process.env.DB_HOST!;
+const databaseName = 'cms';
+const username = 'cms';
+const password = '123';
+const host = "localhost";
 
 const sequelize = new Sequelize(databaseName, username, password, {
   host: host,
-  dialect: dialect,
+  dialect: "mysql",
+  port : 3306
 });
 
 export default sequelize;
