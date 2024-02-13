@@ -1,21 +1,21 @@
 import express from "express";
 import "express-async-errors";
 import morgan from "morgan";
-import helmet from "helmet";
+// import helmet from "helmet";
 import cors from "cors";
 import cookieSession from "cookie-session";
 
 import routes from "./routes";
 import sequelize from "./database/sequelize";
 import { errorHandler } from "./middlewares/error-handler";
-import { NotFoundError } from "./errorHandlers";
+import { NotFoundError } from "./errorHandlers/index";
 import path from "path";
 
 const app = express();
 
 // app.set('trust proxy', true);
 app.use(morgan("dev"));
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(
