@@ -5,6 +5,7 @@ import stat
 
 # Define the application directory path as a global variable
 node_app_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'Projects', 'cms-server'))
+node_app_dir2 = os.path.abspath(os.path.join(os.getcwd(), 'cms-server'))
 current_user = os.getenv('USER')
 
 def update_node():
@@ -96,14 +97,22 @@ def start_node_app_with_pm2():
             # If the app exists, delete it
             subprocess.run(['pm2', 'delete', 'app'], check=True)
 
+        # Change directory to the Node.js app directory
+        os.chdir(node_app_dir2)
+
         # Starting Node.js application with PM2
-        subprocess.run(['pm2', 'start', 'npm', '--', 'run', 'dev'], check=True, cwd=node_app_dir)
+        subprocess.run(['pm2', 'start', 'npm', '--', 'run', 'dev'], check=True)
 
         # Saving PM2 process list to persist through reboots
         subprocess.run(['pm2', 'save'], check=True)
 
         # Printing success message
         print("Node.js application started with PM2.")
+
+    except subprocess.CalledProcessError as e:
+        # Handling errors
+        print(f"Error: Failed to start Node.js application with PM2: {e}")
+        sys.exit(1)
 
     except subprocess.CalledProcessError as e:
         # Handling errors
